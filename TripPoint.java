@@ -106,4 +106,18 @@ public class TripPoint {
         double centralAngle = 2.0 * Math.asin(Math.sqrt(term));
         return EARTH_RADIUS * centralAngle;
     }
+
+    /**
+     * Accumulates step distances over every sequential point tracked throughout the trip array.
+     */
+    public static double totalDistance() {
+        if (trip.size() < 2) {
+            return 0.0;
+        }
+        double accumulatedDist = 0.0;
+        for (int i = 0; i < trip.size() - 1; i++) {
+            accumulatedDist += haversineDistance(trip.get(i), trip.get(i + 1));
+        }
+        return accumulatedDist;
+    }
 }
