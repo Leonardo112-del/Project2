@@ -57,6 +57,19 @@ public class TripPoint {
             if (scanner.hasNextLine()) {
                 scanner.nextLine();
             }
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                if (line.trim().isEmpty()) {
+                    continue;
+                }
+                String[] parts = line.split(",");
+                if (parts.length >= 3) {
+                    int timeVal = Integer.parseInt(parts[0].trim());
+                    double latVal = Double.parseDouble(parts[1].trim());
+                    double lonVal = Double.parseDouble(parts[2].trim());
+                    trip.add(new TripPoint(timeVal, latVal, lonVal));
+                }
+            }
         }
     }
 }
