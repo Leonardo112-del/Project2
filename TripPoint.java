@@ -64,9 +64,9 @@ public class TripPoint {
                 }
                 String[] parts = line.split(",");
                 if (parts.length >= 3) {
-                    int timeVal = Integer.parseInt(parts.trim());
-                    double latVal = Double.parseDouble(parts.trim());
-                    double lonVal = Double.parseDouble(parts.trim());
+                    int timeVal = Integer.parseInt(parts[0].trim());
+                    double latVal = Double.parseDouble(parts[1].trim());
+                    double lonVal = Double.parseDouble(parts[2].trim());
                     trip.add(new TripPoint(timeVal, latVal, lonVal));
                 }
             }
@@ -119,5 +119,18 @@ public class TripPoint {
             accumulatedDist += haversineDistance(trip.get(i), trip.get(i + 1));
         }
         return accumulatedDist;
+    }
+
+    /**
+     * Determines average cross velocity speed metrics between any two selective checkpoints.
+     */
+    public static double avgSpeed(TripPoint a, TripPoint b) {
+        double distance = haversineDistance(a, b);
+        double timeDiffMinutes = Math.abs(a.getTime() - b.getTime());
+        if (timeDiffMinutes == 0) {
+            return 0.0;
+        }
+        double timeDiffHours = timeDiffMinutes / 60.0;
+        return distance / timeDiffHours;
     }
 }
