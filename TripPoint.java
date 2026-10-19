@@ -72,4 +72,15 @@ public class TripPoint {
             }
         }
     }
+
+    /**
+     * Calculates the total elapsed trip time converted into hours.
+     */
+    public static double totalTime() {
+        if (trip.isEmpty()) {
+            return 0.0;
+        }
+        int totalMinutes = trip.get(trip.size() - 1).getTime();
+        return totalMinutes / 60.0;
+    }
 }
