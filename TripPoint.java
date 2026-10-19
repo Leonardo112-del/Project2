@@ -64,9 +64,9 @@ public class TripPoint {
                 }
                 String[] parts = line.split(",");
                 if (parts.length >= 3) {
-                    int timeVal = Integer.parseInt(parts[0].trim());
-                    double latVal = Double.parseDouble(parts[1].trim());
-                    double lonVal = Double.parseDouble(parts[2].trim());
+                    int timeVal = Integer.parseInt(parts.trim());
+                    double latVal = Double.parseDouble(parts.trim());
+                    double lonVal = Double.parseDouble(parts.trim());
                     trip.add(new TripPoint(timeVal, latVal, lonVal));
                 }
             }
@@ -82,5 +82,28 @@ public class TripPoint {
         }
         int totalMinutes = trip.get(trip.size() - 1).getTime();
         return totalMinutes / 60.0;
+    }
+
+    /**
+     * Computes the great-circle sphere distance between two tracking coordinates 
+     * using the standard mathematical Haversine formulation model.
+     */
+    public static double haversineDistance(TripPoint a, TripPoint b) {
+        double lat1 = Math.toRadians(a.getLat());
+        double lon1 = Math.toRadians(a.getLon());
+        double lat2 = Math.toRadians(b.getLat());
+        double lon2 = Math.toRadians(b.getLon());
+
+        double dLat = lat2 - lat1;
+        double dLon = lon2 - lon1;
+
+        double sinDeltaLat = Math.sin(dLat / 2.0);
+        double sinDeltaLon = Math.sin(dLon / 2.0);
+        
+        double term = (sinDeltaLat * sinDeltaLat) + 
+                      Math.cos(lat1) * Math.cos(lat2) * (sinDeltaLon * sinDeltaLon);
+                      
+        double centralAngle = 2.0 * Math.asin(Math.sqrt(term));
+        return EARTH_RADIUS * centralAngle;
     }
 }
