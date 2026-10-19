@@ -18,4 +18,25 @@ public class TripPoint {
         this.lat = lat;
         this.lon = lon;
     }
+
+    /**
+     * Returns the elapsed time of this point.
+     */
+    public int getTime() {
+        return this.time;
+    }
+
+    /**
+     * Returns the latitude of this point.
+     */
+    public double getLat() {
+        return this.lat;
+    }
+
+    /**
+     * Returns the longitude of this point.
+     */
+    public double getLon() {
+        return this.lon;
+    }
 }
