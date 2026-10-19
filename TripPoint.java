@@ -39,4 +39,11 @@ public class TripPoint {
     public double getLon() {
         return this.lon;
     }
+
+    /**
+     * Returns a safe shallow copy of the central trip tracking records.
+     */
+    public static ArrayList<TripPoint> getTrip() {
+        return new ArrayList<>(trip);
+    }
 }
