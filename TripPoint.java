@@ -46,4 +46,17 @@ public class TripPoint {
     public static ArrayList<TripPoint> getTrip() {
         return new ArrayList<>(trip);
     }
+
+    /**
+     * Reads and parses structured data from a comma-separated values (CSV) log file.
+     */
+    public static void readFile(String filename) throws FileNotFoundException {
+        trip.clear();
+        File file = new File(filename);
+        try (Scanner scanner = new Scanner(file)) {
+            if (scanner.hasNextLine()) {
+                scanner.nextLine();
+            }
+        }
+    }
 }
